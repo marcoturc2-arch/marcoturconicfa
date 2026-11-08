@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Analisi gratuita del portafoglio con Marco Turconi, consulente finanziario presso IoInvesto SCF.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://marcoturconicfa.it/">
+<meta property="og:title" content="I tuoi soldi lavorano per te o per la banca?">
+<meta property="og:description" content="Analisi gratuita del portafoglio con Marco Turconi, consulente finanziario presso IoInvesto SCF.">
+<meta property="og:url" content="https://marcoturconicfa.it/">
+<meta property="og:locale" content="it_IT">
+<title>Rotta dei Risparmi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+/* Layout: cinque scene su fondo navy IoInvesto. 1) vortice 3D di monete, 2) storico 2021-2025 di 100.000 €, 3) torre del potere d'acquisto sul conto, 4) torre dei costi bancari, 5) PAC trascinabile. Tema scuro unico per scelta; brand IoInvesto: navy, blu, arancio, Sora e Inter. */
+:root{
+  color-scheme:dark;
+  --bg:#06173a; --bg2:#0e3473; --ink:#ffffff; --text:#dbe4f3; --muted:#98a9c8; --line:rgba(255,255,255,.13); --glass:rgba(14,52,115,.38);
+  --blue:#195ccc; --blue-l:#5b93f0; --orange:#ff6b00; --orange-l:#ff8f40; --gold:#e3b04b; --green:#16a34a; --green-l:#3ccf7e; --red:#dc2626; --red-l:#f0585d;
+  --h:"Sora","Segoe UI",Arial,sans-serif; --b:"Inter","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:400 17px/1.55 var(--b);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blobs i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(100px);opacity:.42;animation:drift 26s ease-in-out infinite alternate}
+.blobs i:nth-child(1){background:#195ccc;left:-18vmax;top:-16vmax}
+.blobs i:nth-child(2){background:#0e3473;right:-16vmax;top:24vh;animation-duration:32s;opacity:.6}
+.blobs i:nth-child(3){background:#ff6b00;left:22vw;bottom:-40vmax;animation-duration:36s;opacity:.12}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+.page{position:relative;z-index:1}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--orange-l);outline-offset:3px}
+h1,h2,h3{font-family:var(--h);color:var(--ink);margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,4.6vw,54px);line-height:1.08;font-weight:800;letter-spacing:-.03em}
+h3{font-size:19px;font-weight:600;line-height:1.3}
+p{margin:0;max-width:62ch}
+.eyebrow{font:600 14px/1.3 var(--h);text-transform:uppercase;letter-spacing:.06em;color:var(--orange-l)}
+.g{color:var(--orange)}
+.cta{display:inline-flex;align-items:center;gap:10px;font:600 17px var(--b);color:#fff;text-decoration:none;padding:16px 26px;border-radius:18px;background:var(--orange);box-shadow:0 10px 32px rgba(255,107,0,.35);transition:transform .2s,box-shadow .2s,background .2s}
+.cta:hover{background:#e86100;transform:translateY(-2px);box-shadow:0 16px 44px rgba(255,107,0,.48)}
+.cta svg{width:22px;height:22px;flex:none}
+.cta.sm{font-size:14px;padding:9px 15px;white-space:nowrap;border-radius:14px}
+@media (max-width:520px){.cta.sm .lg{display:none}}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(6,23,58,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:9px}
+.mark{display:flex;align-items:center;gap:9px;color:#fff;font:700 15px var(--h);text-decoration:none}
+.mark i{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#195ccc,#0e3473);box-shadow:inset 0 0 0 2px #ff6b00}
+@media (max-width:520px){.mark span{display:none}}
+
+.hero{position:relative;min-height:calc(100vh - 54px);display:flex;align-items:center;overflow:hidden}
+#gl{position:absolute;inset:0;width:100%;height:100%}
+.hero .wrap{position:relative;width:100%;padding-block:48px}
+.hero .copy{max-width:600px;display:grid;gap:22px}
+h1{font-size:clamp(42px,7vw,86px);line-height:1;font-weight:800;letter-spacing:-.04em}
+.lead{font-size:clamp(18px,2vw,22px);color:#e8eefa}
+.proof{display:flex;flex-wrap:wrap;gap:14px;align-items:center;text-decoration:none;color:var(--text);padding:12px 16px;border-radius:18px;background:rgba(22,163,74,.12);border:1px solid rgba(60,207,126,.4);max-width:520px}
+.proof b{font:800 clamp(26px,3.4vw,36px)/1 var(--h);color:var(--green-l);white-space:nowrap}
+.proof span{font-size:15px;line-height:1.35}
+.proof:hover{border-color:var(--green-l)}
+@media (max-width:760px){.hero{align-items:flex-end}.hero .copy{background:rgba(6,23,58,.66);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:18px;border-radius:22px;border:1px solid var(--line)}}
+
+section.scene{padding-block:64px}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:26px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 30px 90px rgba(0,0,0,.35)}
+.sh{display:grid;gap:12px;margin-bottom:30px;max-width:800px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chips span{font-size:14px;color:var(--muted);margin-right:4px}
+.chips button{font:600 14px var(--b);padding:6px 13px;border-radius:99px;border:1px solid var(--line);background:transparent;color:#fff;cursor:pointer}
+.chips button[aria-pressed="true"]{background:#fff;color:var(--bg2);border-color:#fff}
+
+.loss{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.1fr);overflow:hidden}
+@media (max-width:900px){.loss{grid-template-columns:minmax(0,1fr)}}
+.loss .left{padding:clamp(22px,3.6vw,42px);display:grid;gap:20px;align-content:start}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.big div{display:grid;gap:3px;padding:16px;border-radius:18px;background:rgba(6,23,58,.55);border:1px solid var(--line)}
+.big b{white-space:nowrap;font:800 clamp(24px,3.2vw,40px)/1 var(--h);letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--red-l)}
+.big span{font-size:13.5px;color:var(--muted)}
+.split{display:grid;gap:8px}
+.split div{display:flex;justify-content:space-between;gap:12px;font-size:15px;align-items:baseline}
+.split b{font:700 17px var(--h);font-variant-numeric:tabular-nums;color:#fff}
+.split i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:8px}
+.ticker{font-size:14px;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ticker b{font:700 16px var(--h);color:#fff;font-variant-numeric:tabular-nums}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--red-l);box-shadow:0 0 0 0 rgba(240,88,93,.7);animation:pulse 1.6s infinite}
+@keyframes pulse{to{box-shadow:0 0 0 12px rgba(240,88,93,0)}}
+.stage{position:relative;background:radial-gradient(90% 70% at 50% 100%,rgba(25,92,204,.38),transparent 70%);padding:20px clamp(12px,2.6vw,26px);display:grid;gap:12px;min-width:0}
+.stage svg{width:100%;height:auto;display:block}
+.scrub{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center}
+.play{width:46px;height:46px;border-radius:50%;border:0;background:var(--orange);color:#fff;font-size:15px;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,0,.4)}
+input[type=range]{width:100%;accent-color:var(--orange);margin:0}
+.yr{font:700 16px var(--h);color:#fff;min-width:5.6em;text-align:right;font-variant-numeric:tabular-nums}
+.coin{transition:transform .85s cubic-bezier(.3,1.3,.5,1),opacity .5s}
+.small{font-size:13px;color:var(--muted);max-width:92ch}
+
+.panel{padding:clamp(20px,3.6vw,42px);display:grid;gap:20px}
+.phead{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;align-items:end}
+@media (max-width:860px){.phead{grid-template-columns:minmax(0,1fr)}}
+.hero-num{font:800 clamp(42px,7vw,84px)/1 var(--h);letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:#fff}
+.hero-num.pos{color:var(--green-l)}
+.phead p{font:600 clamp(17px,2vw,22px)/1.35 var(--h);color:#fff}
+.chart{position:relative;min-width:0;touch-action:pan-y}
+.chart canvas{width:100%;height:clamp(290px,42vw,440px);display:block;cursor:crosshair}
+.tip{position:absolute;pointer-events:none;background:rgba(6,23,58,.95);border:1px solid var(--line);border-radius:12px;padding:9px 12px;font-size:13.5px;line-height:1.55;min-width:210px;box-shadow:0 10px 40px rgba(0,0,0,.45);z-index:3}
+.tip div{display:flex;justify-content:space-between;gap:14px}
+.tip i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:7px;vertical-align:-1px}
+.legend i.dash{width:18px;height:0;border-top:2px dashed #fff;border-radius:0;vertical-align:3px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:700px){.stats{grid-template-columns:minmax(0,1fr)}}
+.stats div{padding:15px;border-radius:18px;background:rgba(6,23,58,.55);border:1px solid var(--line);display:grid;gap:2px}
+.stats b{font:800 clamp(22px,2.8vw,30px)/1.1 var(--h);color:#fff;font-variant-numeric:tabular-nums}
+.stats span{font-size:13.5px;color:var(--muted)}
+.horiz{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:700px){.horiz{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.horiz button{all:unset;cursor:pointer;padding:14px;border-radius:18px;background:rgba(6,23,58,.55);border:1px solid var(--line);display:grid;gap:2px;transition:border-color .2s,background .2s}
+.horiz button:hover{border-color:var(--blue-l)}
+.horiz button:focus-visible{outline:3px solid var(--orange-l)}
+.horiz button[aria-pressed="true"]{border-color:var(--orange);background:rgba(255,107,0,.12)}
+.horiz small{font-size:13px;color:var(--muted)}
+.horiz b{font:800 clamp(20px,2.4vw,26px)/1.1 var(--h);color:#fff;font-variant-numeric:tabular-nums}
+.hintdrag{font-size:13.5px;color:var(--orange-l)}
+
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;perspective:1000px}
+@media (max-width:860px){.steps{grid-template-columns:minmax(0,1fr)}}
+.step{padding:16px 16px 22px;display:grid;gap:10px;align-content:start;transition:transform .15s ease-out}
+.step svg{width:100%;height:auto;border-radius:18px;display:block}
+.step .n{font:700 13px var(--h);color:var(--orange-l);letter-spacing:.05em}
+.final{text-align:center;display:grid;justify-items:center;gap:20px;padding:clamp(36px,7vw,76px) clamp(18px,4vw,40px);background:linear-gradient(140deg,rgba(25,92,204,.5),rgba(14,52,115,.55))}
+.final h2{max-width:17ch}
+.msgprev{font-size:14.5px;background:rgba(22,163,74,.14);border:1px solid rgba(60,207,126,.45);color:#dcfce7;padding:10px 14px;border-radius:16px 16px 16px 4px;max-width:420px;text-align:left}
+.mail{font-size:14px;color:#cfdcf5}
+
+footer{position:relative;z-index:1;padding-block:26px 34px;text-align:center;font-size:12.5px;color:var(--muted)}
+footer details{max-width:900px;margin:10px auto 0;text-align:left}
+footer summary{cursor:pointer;text-align:center;font-size:12px}
+footer details p{font-size:11.5px;line-height:1.5;margin-top:8px;max-width:none}
+footer a{color:#cfdcf5}
+.rv.in{animation:up .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes up{from{transform:translateY(36px);filter:blur(6px)}to{transform:none;filter:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+<header class="top"><div class="wrap">
+  <a class="mark" href="#inizio"><i aria-hidden="true"></i><span>Rotta dei Risparmi</span></a>
+  <a class="cta sm wa" href="#" target="_blank" rel="noopener"><span>Analisi gratuita<span class="lg"> del portafoglio</span></span></a>
+</div></header>
+
+<div class="page">
+<section class="hero" id="inizio">
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="wrap"><div class="copy">
+    <div class="eyebrow">Fai il test dei 100.000&nbsp;€</div>
+    <h1>I tuoi soldi lavorano per te <span class="g">o per la banca?</span></h1>
+    <p class="lead">Sul conto perdono valore, nei prodotti della banca pagano costi. Quanto ti è già costato?</p>
+    <a class="proof" href="#storico"><b>+35.175 €</b><span>in 5 anni, con 100.000 € in un portafoglio bilanciato. Sul conto sarebbero rimasti 100.000 €.</span></a>
+    <div><a class="cta wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.6 0l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>Analisi gratuita del portafoglio</a></div>
+  </div></div>
+</section>
+
+<section class="scene" id="storico"><div class="wrap">
+  <div class="sh rv"><div class="eyebrow">Gli ultimi 5 anni, dati reali</div><h2>Se 5 anni fa avessi investito 100.000&nbsp;€, <span class="g">quanto avresti oggi?</span></h2></div>
+  <div class="card panel rv">
+    <div class="phead">
+      <div><div class="hero-num pos" id="bt"></div><p id="btS"></p></div>
+      <div class="legend"><span><i style="background:var(--green-l)"></i>Portafoglio bilanciato</span><span><i style="background:var(--red-l)"></i>Stesso portafoglio, con costi bancari al 2,8%</span><span><i class="dash"></i>Sul conto corrente</span></div>
+    </div>
+    <div class="chart"><canvas id="c1" role="img" aria-label="Valore di 100.000 € da gennaio 2021 a dicembre 2025: portafoglio bilanciato, stesso portafoglio con costi bancari e conto corrente. I valori finali sono nei riquadri sotto."></canvas><div class="tip" id="tip1" hidden></div></div>
+    <div class="stats"><div><b id="b1"></b><span>portafoglio bilanciato, senza costi di prodotto</span></div><div><b id="b2"></b><span>stesso portafoglio con costi bancari del 2,8% l'anno</span></div><div><b id="b3"></b><span>gli stessi soldi lasciati sul conto corrente</span></div></div>
+    <p class="small">Rendimenti annui in euro 2021-2025 di Vanguard LifeStrategy 60% Equity UCITS ETF (Acc), 60% azioni e 40% obbligazioni, usato come esempio di portafoglio bilanciato e non come raccomandazione. I rendimenti passati non sono indicativi di quelli futuri. Non considera tasse.</p>
+  </div>
+</div></section>
+
+<section class="scene" id="banca"><div class="wrap">
+  <div class="sh rv"><div class="eyebrow">E se li tieni sul conto?</div><h2>Quanto ti costa tenere i soldi <span class="g">fermi in banca?</span></h2></div>
+  <div class="card loss rv">
+    <div class="left">
+      <div class="chips"><span>Inflazione ipotizzata: <b style="color:#fff">2,5% l'anno</b></span></div>
+      <div class="big"><div><b id="a1"></b><span>di potere d'acquisto il primo anno</span></div><div><b id="aN"></b><span>di potere d'acquisto in 20 anni</span></div></div>
+      <div class="ticker"><i class="dot"></i>Da quando sei su questa pagina: <b id="tick">0,0000 €</b></div>
+      <p>Il saldo resta 100.000 €, ma i prezzi salgono ogni anno. Con gli stessi soldi compri sempre meno.</p>
+</div>
+    <div class="stage">
+      <svg id="tw-banca" viewBox="0 0 600 480" role="img" aria-label="Torre di 20 monete: ogni moneta vale il 5% del potere d'acquisto dei tuoi 100.000 €. Le monete perse finiscono nella pila a destra."></svg>
+      <div class="scrub"><button class="play" id="lp-banca" type="button" aria-label="Fai scorrere gli anni">▶</button><input id="ly-banca" type="range" min="0" max="20" step="1" value="20" aria-label="Anni"><output class="yr" id="lyO-banca"></output></div>
+    </div>
+  </div>
+  <p class="small rv" style="margin-top:14px">Esempio ipotetico con inflazione costante del 2,5% l'anno. Ogni moneta vale il 5% del potere d'acquisto di oggi.</p>
+</div></section>
+
+<section class="scene" id="perdita"><div class="wrap">
+  <div class="sh rv"><div class="eyebrow">E con il consulente della banca?</div><h2>Quanti soldi ti costano <span class="g">i prodotti della banca?</span></h2></div>
+  <div class="card loss rv">
+    <div class="left">
+      <div class="chips"><span>Costi annui del prodotto: <b style="color:#fff">2,8%</b></span></div>
+      <div class="big"><div><b id="l1"></b><span>di costi il primo anno</span></div><div><b id="lN"></b><span>tra costi e rendimento perso in 20 anni</span></div></div>
+      <p id="why"></p>
+</div>
+    <div class="stage">
+      <svg id="tw-perdita" viewBox="0 0 600 480" role="img" aria-label="Torre di 20 monete: ogni moneta vale il 5% di quanto avresti con lo stesso mercato e senza costi. Le monete perse finiscono nella pila dei costi."></svg>
+      <div class="scrub"><button class="play" id="lp-perdita" type="button" aria-label="Fai scorrere gli anni">▶</button><input id="ly-perdita" type="range" min="0" max="20" step="1" value="20" aria-label="Anni"><output class="yr" id="lyO-perdita"></output></div>
+    </div>
+  </div>
+  <p class="small rv" style="margin-top:14px">Esempio ipotetico: mercato al 7% lordo l'anno costante, costi annui del 2,8%, valore medio indicativo per le polizze pubblicato da IoInvesto SCF. Il tuo dato vero è nel rendiconto costi e oneri. Non considera tasse.</p>
+</div></section>
+
+<section class="scene" id="pac"><div class="wrap">
+  <div class="sh rv"><div class="eyebrow">E se faccio un PAC?</div><h2>100.000&nbsp;€ oggi e 500&nbsp;€ al mese. <span class="g">Dove arrivi?</span></h2><p>Un piano di accumulo aggiunge ogni mese una quota fissa. Scegli l'orizzonte o trascina il traguardo sul grafico.</p></div>
+  <div class="card panel rv">
+    <div class="horiz" id="horiz"></div>
+    <div class="phead"><div><div class="hero-num" id="pv"></div><p id="pvS"></p></div>
+      <div class="legend"><span><i style="background:var(--blue)"></i>Capitale iniziale</span><span><i style="background:var(--blue-l)"></i>I tuoi 500 € al mese</span><span><i style="background:var(--green-l)"></i>Rendimento</span><span><i class="dash"></i>Stessi soldi sul conto</span></div></div>
+    <div class="chart"><canvas id="c2" role="img" aria-label="Crescita di 100.000 € più 500 € al mese con rendimento ipotetico del 7% annuo, confrontata con gli stessi versamenti sul conto. I valori per orizzonte sono nei riquadri sopra."></canvas><div class="tip" id="tip2" hidden></div></div>
+    <div class="hintdrag">⇆ Trascina il traguardo o passa sul grafico per vedere ogni anno.</div>
+    <p class="small">Esempio ipotetico con rendimento costante del 7% annuo, composto mensilmente. Non è una previsione né una promessa: i mercati salgono e scendono e il capitale può perdersi. Non considera costi, tasse e inflazione.</p>
+  </div>
+</div></section>
+
+<section class="scene"><div class="wrap">
+  <div class="sh rv"><div class="eyebrow">Analisi gratuita del portafoglio</div><h2>Sai davvero quanto paghi <span class="g">e quanto rischi?</span></h2></div>
+  <div class="stats rv" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));margin-bottom:18px"><div><b>4.600+</b><span>clienti IoInvesto SCF</span></div><div><b>700 mln €+</b><span>patrimoni in consulenza</span></div><div><b>20 mln €+</b><span>costi tagliati ai clienti</span></div><div><b>100+</b><span>consulenti iscritti all'Albo OCF</span></div></div>
+  <div class="steps">
+    <div class="card step rv">
+      <svg viewBox="0 0 320 200" aria-hidden="true"><rect width="320" height="200" fill="#0e3473"/><circle cx="260" cy="30" r="70" fill="#195ccc" opacity=".55"/><rect x="108" y="22" width="104" height="170" rx="16" fill="#06173a" stroke="#fff" stroke-opacity=".45" stroke-width="2"/><rect x="118" y="44" width="84" height="22" rx="6" fill="#16a34a"/><text x="160" y="59" text-anchor="middle" font-size="10" font-family="Inter, Arial" fill="#fff">Buongiorno!</text><g fill="#fff"><rect x="118" y="78" width="66" height="8" rx="4" opacity=".8"/><rect x="118" y="94" width="50" height="8" rx="4" opacity=".5"/></g><g transform="translate(118 112)"><rect width="84" height="56" rx="8" fill="#fff" opacity=".1"/><text x="8" y="16" font-size="9" fill="#ff8f40" font-family="Inter, Arial">ISIN · €</text><rect x="8" y="24" width="68" height="5" rx="2" fill="#fff" opacity=".6"/><rect x="8" y="34" width="54" height="5" rx="2" fill="#fff" opacity=".45"/><rect x="8" y="44" width="62" height="5" rx="2" fill="#fff" opacity=".3"/></g><circle cx="60" cy="150" r="26" fill="#ff6b00"/><path d="M48 150l8 8 16-17" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="n">PASSO 1</div><h3>Mi mandi i tuoi investimenti</h3><p>Basta l'elenco scaricato dalla banca: conto, fondi, polizze, fondo pensione.</p>
+    </div>
+    <div class="card step rv">
+      <svg viewBox="0 0 320 200" aria-hidden="true"><rect width="320" height="200" fill="#0e3473"/><circle cx="40" cy="180" r="80" fill="#195ccc" opacity=".55"/><g transform="translate(40 40)"><rect width="200" height="120" rx="14" fill="#06173a" stroke="#fff" stroke-opacity=".4"/><polyline points="16,96 56,70 96,82 136,40 184,24" fill="none" stroke="#3ccf7e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="16,96 56,90 96,100 136,88 184,92" fill="none" stroke="#f0585d" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 7"/></g><circle cx="222" cy="104" r="34" fill="none" stroke="#fff" stroke-width="8"/><circle cx="222" cy="104" r="30" fill="#fff" opacity=".1"/><path d="M246 128l30 30" stroke="#fff" stroke-width="12" stroke-linecap="round"/><text x="222" y="111" text-anchor="middle" font-family="Sora, Arial, sans-serif" font-weight="800" font-size="20" fill="#ff8f40">%</text></svg>
+      <div class="n">PASSO 2</div><h3>Analizzo costi e rischi</h3><p>Quanto paghi ogni anno, quanto rischi, dove stai perdendo rendimento.</p>
+    </div>
+    <div class="card step rv">
+      <svg viewBox="0 0 320 200" aria-hidden="true"><defs><linearGradient id="i3c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5d48a"/><stop offset="1" stop-color="#c98f2e"/></linearGradient></defs><rect width="320" height="200" fill="#0e3473"/><circle cx="290" cy="180" r="80" fill="#195ccc" opacity=".55"/><rect x="34" y="30" width="170" height="118" rx="14" fill="#06173a" stroke="#fff" stroke-opacity=".4"/><circle cx="119" cy="76" r="22" fill="#5b93f0"/><rect x="89" y="104" width="60" height="30" rx="15" fill="#5b93f0"/><rect x="104" y="150" width="30" height="16" fill="#fff" opacity=".3"/><rect x="80" y="164" width="78" height="6" rx="3" fill="#fff" opacity=".4"/><g transform="translate(222 64)"><ellipse cx="36" cy="80" rx="36" ry="10" fill="#8a5a12"/><rect x="0" y="62" width="72" height="18" fill="#a8721c"/><ellipse cx="36" cy="62" rx="36" ry="10" fill="url(#i3c)"/><rect x="0" y="40" width="72" height="18" fill="#a8721c"/><ellipse cx="36" cy="40" rx="36" ry="10" fill="url(#i3c)"/><rect x="0" y="18" width="72" height="18" fill="#a8721c"/><ellipse cx="36" cy="18" rx="36" ry="10" fill="url(#i3c)"/></g></svg>
+      <div class="n">PASSO 3</div><h3>Ti mostro i numeri</h3><p>In videochiamata, in euro. Poi decidi tu.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="scene"><div class="wrap">
+  <div class="card final rv">
+    <div class="eyebrow">Gratis, senza impegno</div>
+    <h2>Quanto ti sta costando <span class="g">non saperlo?</span></h2>
+    <div class="msgprev">Buongiorno! Vorrei effettuare un'analisi di portafoglio gratuita.</div>
+    <a class="cta wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.2.5.1.6 0l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.2.5.2.5.4.1.1.1.7-.1 1.3Z"/></svg>Analisi gratuita del portafoglio</a>
+    <a class="mail" href="mailto:marcoturconi@cfa.ioinvesto.net?subject=Analisi%20gratuita%20del%20portafoglio">marcoturconi@cfa.ioinvesto.net</a>
+  </div>
+</div></section>
+</div>
+
+<footer><div class="wrap">
+  Marco Turconi · CFA presso IoInvesto SCF
+  <details><summary>Note legali e fonti</summary>
+    <p>Marco Turconi, consulente finanziario autonomo, Albo OCF [n. iscrizione da inserire]. Indirizzo: [da inserire]. C.F.: [da inserire]. P.IVA IT13489000961. Email: marcoturconi@cfa.ioinvesto.net.</p>
+    <p>La consulenza in materia di investimenti (analisi e composizione del portafoglio, pianificazione e allocazione, strategie di investimento) è prestata per conto di <a href="https://ioinvesto.net/" target="_blank" rel="noopener">IoInvesto SCF S.r.l.</a>, Via Guido Galimberti 8/A, Bergamo, P.IVA 04462930167, con cui il consulente ha un accordo di collaborazione esclusivo.</p>
+    <p>Disclaimer. In un'ottica di massima trasparenza nei confronti di tutti i visitatori del seguente sito web (di seguito gli "Interessati"), con la presente nota legale Marco Turconi (il "Consulente Finanziario") precisa che, in ragione degli specifici accordi contrattuali intercorrenti tra il Consulente Finanziario e IoInvesto SCF S.r.l., sarà quest'ultima a offrire il servizio di consulenza in materia di investimenti avente ad oggetto valori mobiliari e quote di organismi di investimento collettivo del risparmio, senza detenzione di fondi e titoli appartenenti ai clienti. Il Consulente Finanziario resta a disposizione dell'Interessato per ogni eventuale ulteriore chiarimento in merito a quanto sopra, al seguente indirizzo e-mail marcoturconi@cfa.ioinvesto.net.</p>
+    <p>Privacy policy e cookie policy: [da inserire]. Esempi ipotetici a scopo informativo, non raccomandazioni personalizzate. Inflazione: ipotesi del 2,5% l'anno. Storico bilanciato: <a href="https://extraetf.com/it/etf-profile/IE00BMVB5P51" target="_blank" rel="noopener">extraETF</a>. Costi medi dei prodotti e dati IoInvesto: <a href="https://www.ioinvesto.net/costi/" target="_blank" rel="noopener">ioinvesto.net</a>. Dati all'8 novembre 2026.</p>
+  </details>
+</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const grp=n=>String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const eur=v=>(v<0?'-':'')+grp(v)+' €';
+const k=v=>v>=1e6?(v/1e6).toLocaleString('it-IT',{maximumFractionDigits:2})+' mln €':grp(v/1000)+'k €';
+const WA='https://wa.me/393311376711?text='+encodeURIComponent("Buongiorno! Vorrei effettuare un'analisi di portafoglio gratuita.");
+document.querySelectorAll('.wa').forEach(a=>a.href=WA);
+function count(el,to,fmt,ms=900){if(RM){el.textContent=fmt(to);el._v=to;return;}const from=el._v??0,t0=performance.now();cancelAnimationFrame(el._r);const st=n=>{const p=Math.min(1,(n-t0)/ms),e=1-Math.pow(1-p,4);el.textContent=fmt(from+(to-from)*e);if(p<1)el._r=requestAnimationFrame(st);else el._v=to;};el._r=requestAnimationFrame(st);}
+
+/* ---------- 1. vortice 3D ---------- */
+(function hero(){
+  const cv=$('gl');let R;
+  if(!window.THREE){cv.remove();return;}
+  try{R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});}catch(e){cv.remove();return;}
+  R.setPixelRatio(Math.min(2,devicePixelRatio||1));
+  const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(42,1,.1,100);C.position.set(0,0,13);
+  const mob=innerWidth<760,N=mob?140:280;
+  const geo=new THREE.CylinderGeometry(.46,.46,.08,48),mat=new THREE.MeshStandardMaterial({color:0xffffff,metalness:.85,roughness:.26,emissive:0x1a1000,emissiveIntensity:.3});
+  const M=new THREE.InstancedMesh(geo,mat,N),col=new THREE.Color(),pal=[0xe3b04b,0xd9a441,0xf0c76a,0xc98f2e,0xe3b04b,0xdfe6f2];
+  const P=[];for(let i=0;i<N;i++){col.setHex(pal[i%pal.length]);M.setColorAt(i,col);P.push({a:Math.random()*6.28,r:1.6+Math.random()*3.2,y:Math.random()*14-7,s:.3+Math.random()*.5,rx:.6+Math.random()*1.4,ry:.4+Math.random()});}
+  const G=new THREE.Group();G.add(M);S.add(G);G.position.set(mob?0:4.6,mob?2.2:0,0);
+  S.add(new THREE.AmbientLight(0x6b7fb0,.6));const d=new THREE.DirectionalLight(0xffffff,1.2);d.position.set(3,6,8);S.add(d);
+  const L=[[0x195ccc,0,3.6],[0xff6b00,2.1,2.4],[0x5b93f0,4.2,3]].map(([c,o,i])=>{const l=new THREE.PointLight(c,i,26);S.add(l);return{l,o};});
+  const D=new THREE.Object3D();let mx=0,my=0,run=true,t=0;
+  addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;},{passive:true});
+  function size(){const w=cv.clientWidth,h=cv.clientHeight;R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix();}
+  addEventListener('resize',size);size();
+  function frame(dt){
+    t+=dt;
+    for(let i=0;i<N;i++){const p=P[i];let y=((p.y+t*p.s+7)%14+14)%14-7;const f=.32+.68*((y+7)/14),a=p.a+t*(.5-.25*f);
+      D.position.set(Math.cos(a)*p.r*f,y,Math.sin(a)*p.r*f);D.rotation.set(t*p.rx+i,t*p.ry,i*.7);D.updateMatrix();M.setMatrixAt(i,D.matrix);}
+    M.instanceMatrix.needsUpdate=true;
+    L.forEach(({l,o})=>l.position.set(Math.cos(t*.6+o)*7+G.position.x,Math.sin(t*.8+o)*4,Math.sin(t*.6+o)*6+3));
+    C.position.x+=(mx*2.4-C.position.x)*.05;C.position.y+=(-my*1.6-C.position.y)*.05;C.lookAt(G.position.x*.45,0,0);
+    R.render(S,C);
+  }
+  if(RM){frame(3);return;}
+  new IntersectionObserver(e=>{run=e[0].isIntersecting;}).observe(cv);
+  let last=performance.now();(function loop(n){const dt=Math.min(.05,(n-last)/1000);last=n;if(run&&!document.hidden)frame(dt);requestAnimationFrame(loop);})(last);
+})();
+
+/*MODEL-START*/
+const INFL=2.5,MKT=7,HIST=[14.34,-13.86,12.48,14.72,6.36];
+function lossModel(cost,years){
+  const rm=Math.pow(1+MKT/100,1/12)-1;let f=1e5,b=1e5;
+  for(let m=0;m<years*12;m++){f*=1+rm;b=b*(1+rm)-b*cost/1200;}
+  return{f,b,costs:f-b};
+}
+function contoLoss(y){return 1e5-1e5/Math.pow(1+INFL/100,y);}
+function backtest(cost){const out=[1e5];let v=1e5;HIST.forEach(r=>{const rm=Math.pow(1+r/100,1/12)-1;for(let i=0;i<12;i++){v=v*(1+rm)-v*cost/1200;out.push(v);}});return out;}
+function pac(Y){const rm=Math.pow(1+MKT/100,1/12)-1,out=[{t:0,v:1e5,c:0}];let v=1e5;for(let m=1;m<=Y*12;m++){v=v*(1+rm)+500;out.push({t:m/12,v,c:500*m});}return out;}
+/*MODEL-END*/
+
+/* ---------- 2. torri ---------- */
+const DEFS=`<defs><linearGradient id="cg" x1="0" x2="1"><stop offset="0" stop-color="#f7dfa0"/><stop offset=".5" stop-color="#e3b04b"/><stop offset="1" stop-color="#b9821f"/></linearGradient><linearGradient id="cs" x1="0" x2="1"><stop offset="0" stop-color="#94600f"/><stop offset=".5" stop-color="#d39a34"/><stop offset="1" stop-color="#7a4f0c"/></linearGradient><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#f7a3a6"/><stop offset=".5" stop-color="#dc2626"/><stop offset="1" stop-color="#9b1b1b"/></linearGradient><linearGradient id="rs" x1="0" x2="1"><stop offset="0" stop-color="#7a1414"/><stop offset=".5" stop-color="#c22020"/><stop offset="1" stop-color="#5e0f0f"/></linearGradient><linearGradient id="ig" x1="0" x2="1"><stop offset="0" stop-color="#d7deeb"/><stop offset=".5" stop-color="#8a9bbd"/><stop offset="1" stop-color="#5b6b8c"/></linearGradient><linearGradient id="is" x1="0" x2="1"><stop offset="0" stop-color="#4a5878"/><stop offset=".5" stop-color="#7686a8"/><stop offset="1" stop-color="#3c4864"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#5b93f0" stop-opacity=".5"/><stop offset="1" stop-color="#5b93f0" stop-opacity="0"/></radialGradient></defs>`;
+function tower(id,cfg){
+  const svg=$('tw-'+id),NC=20,TH=15,PX=[170,430],coins=[];
+  svg.innerHTML=(id==='banca'?DEFS:'')+`<ellipse cx="300" cy="428" rx="270" ry="40" fill="url(#glow)"/><g class="cz"></g><g font-family="Sora, Arial, sans-serif" font-weight="700" text-anchor="middle"><text x="170" y="472" font-size="24" fill="#fff">${cfg.keepLabel}</text><text x="430" y="472" font-size="24" fill="${cfg.lostText}">${cfg.lostLabel}</text><text x="170" y="32" font-size="30" style="transition:transform .85s cubic-bezier(.3,1.3,.5,1)" font-weight="800" fill="#f0c76a" class="vk"></text><text x="430" y="32" font-size="30" style="transition:transform .85s cubic-bezier(.3,1.3,.5,1)" font-weight="800" fill="${cfg.lostText}" class="vl"></text></g>`;
+  const cz=svg.querySelector('.cz');
+  for(let i=0;i<NC;i++){const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('class','coin');
+    g.innerHTML=`<ellipse cx="0" cy="${TH}" rx="78" ry="21" class="sd"/><rect x="-78" y="0" width="156" height="${TH}" class="sd"/><ellipse cx="0" cy="0" rx="78" ry="21" class="tp"/><ellipse cx="0" cy="0" rx="58" ry="15" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="2"/>`;cz.append(g);coins.push(g);}
+  let y=20,timer=null;const sl=$('ly-'+id),out=$('lyO-'+id),btn=$('lp-'+id);
+  function paint(){const r=cfg.at(y),nL=Math.round(r.share*NC),nK=NC-nL;
+    sl.value=y;out.textContent=y===0?'Oggi':`Tra ${y} ${y===1?'anno':'anni'}`;
+    coins.forEach((g,i)=>{const lost=i>=nK,j=lost?i-nK:i;g.style.transform=`translate(${PX[lost?1:0]}px,${410-j*TH}px)`;g.style.transitionDelay=(j*30)+'ms';
+      g.querySelectorAll('.sd').forEach(s=>s.setAttribute('fill',lost?cfg.lostSide:'url(#cs)'));g.querySelector('.tp').setAttribute('fill',lost?cfg.lostTop:'url(#cg)');});
+    const vk=svg.querySelector('.vk'),vl=svg.querySelector('.vl');vk.textContent=eur(r.keep);vl.textContent=nL||r.lost>0?'-'+eur(r.lost):'';
+    vk.style.transform=`translateY(${(NC-nK)*TH+340-NC*TH}px)`;vl.style.transform=`translateY(${(NC-nL)*TH+340-NC*TH}px)`;}
+  const stop=()=>{clearInterval(timer);timer=null;btn.textContent='▶';};
+  function play(){if(timer){stop();return;}if(y>=20)y=0;paint();btn.textContent='❚❚';timer=setInterval(()=>{if(y>=20){stop();return;}y++;paint();},260);}
+  btn.addEventListener('click',play);sl.addEventListener('input',e=>{stop();y=+e.target.value;paint();});
+  paint();let done=false;new IntersectionObserver(e=>{if(e[0].isIntersecting&&!done&&!RM){done=true;y=0;paint();setTimeout(play,500);}},{threshold:.45}).observe(svg);
+}
+tower('banca',{keepLabel:"Potere d'acquisto",lostLabel:'Perso per inflazione',lostText:'#c3cde0',lostTop:'url(#ig)',lostSide:'url(#is)',
+  at:y=>{const l=contoLoss(y);return{share:l/1e5,keep:1e5-l,lost:l};}});
+const COST=2.8;
+tower('perdita',{keepLabel:'Ti resta',lostLabel:'Costi',lostText:'#f7a3a6',lostTop:'url(#rg)',lostSide:'url(#rs)',
+  at:y=>{const m=lossModel(COST,y);return{share:m.costs/m.f,keep:m.b,lost:m.costs};}});
+count($('a1'),contoLoss(1),v=>'-'+eur(v));count($('aN'),contoLoss(20),v=>'-'+eur(v));
+const m1=lossModel(COST,1),mN=lossModel(COST,20);
+count($('l1'),m1.costs,v=>'-'+eur(v));count($('lN'),mN.costs,v=>'-'+eur(v));
+$('why').textContent=`Con lo stesso mercato al 7%, senza costi tra 20 anni avresti ${eur(mN.f)}. Con costi del 2,8% l'anno ne hai ${eur(mN.b)}: la differenza è di ${eur(mN.costs)}.`;
+const t0=Date.now();setInterval(()=>{const ps=contoLoss(1)/31536000;$('tick').textContent='-'+((Date.now()-t0)/1000*ps).toLocaleString('it-IT',{minimumFractionDigits:4,maximumFractionDigits:4})+' €';},100);
+
+/* ---------- utilità grafici ---------- */
+function nice(v){const p=Math.pow(10,Math.floor(Math.log10(v)));for(const q of [1,1.5,2,2.5,3,4,5,6,8,10])if(q*p>=v)return q*p;return 10*p;}
+function setup(cv){const o={cv,cx:cv.getContext('2d'),W:0,H:0,dpr:1};o.fit=()=>{o.dpr=Math.min(2,devicePixelRatio||1);o.W=cv.clientWidth;o.H=cv.clientHeight;cv.width=o.W*o.dpr;cv.height=o.H*o.dpr;};return o;}
+function path(cx,pts){cx.beginPath();pts.forEach((p,i)=>i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1]));}
+function area(cx,pts,fill){path(cx,pts);cx.closePath();cx.fillStyle=fill;cx.fill();}
+function tipAt(tip,box,x,html){tip.innerHTML=html;tip.hidden=false;const w=tip.offsetWidth;tip.style.left=Math.max(0,Math.min(box-w,x+(x>box/2?-w-14:14)))+'px';tip.style.top='10px';}
+
+/* ---------- 3. storico 2021-2025 ---------- */
+(function(){
+  const A=backtest(0),B=backtest(2.8),o=setup($('c1')),PAD={l:72,r:20,t:24,b:34};let prog=1,hov=null;
+  const ymin=70000,ymax=150000,X=i=>PAD.l+(o.W-PAD.l-PAD.r)*i/60,Y=v=>PAD.t+(o.H-PAD.t-PAD.b)*(1-(v-ymin)/(ymax-ymin));
+  count($('bt'),A[60],eur);$('btS').textContent=`a fine 2025, con un portafoglio bilanciato. Sul conto avresti ancora 100.000 €.`;
+  $('b1').textContent=eur(A[60]);$('b2').textContent=eur(B[60]);$('b3').textContent=eur(1e5);
+  function draw(){const{cx,W,H,dpr}=o;cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,W,H);
+    cx.font='12px Inter, Arial';cx.fillStyle='#98a9c8';cx.textAlign='right';
+    for(let v=ymin;v<=ymax;v+=20000){const y=Y(v);cx.strokeStyle='rgba(255,255,255,.08)';cx.beginPath();cx.moveTo(PAD.l,y);cx.lineTo(W-PAD.r,y);cx.stroke();cx.fillText(k(v),PAD.l-10,y+4);}
+    for(const yr of (W<520?[0,3,5]:[0,1,2,3,4,5])){cx.textAlign=yr===0?'left':yr===5?'right':'center';cx.fillText(yr===0?'inizio 2021':'fine '+(2020+yr),X(yr*12),H-10);}
+    const n=Math.max(2,Math.round(61*prog)),a=A.slice(0,n).map((v,i)=>[X(i),Y(v)]),b=B.slice(0,n).map((v,i)=>[X(i),Y(v)]);
+    const gr=cx.createLinearGradient(0,Y(ymax),0,Y(ymin));gr.addColorStop(0,'rgba(60,207,126,.35)');gr.addColorStop(1,'rgba(60,207,126,0)');
+    area(cx,[[X(0),Y(ymin)],...a,[a[a.length-1][0],Y(ymin)]],gr);
+    cx.strokeStyle='#fff';cx.lineWidth=2;cx.setLineDash([6,6]);path(cx,[[X(0),Y(1e5)],[X(n-1),Y(1e5)]]);cx.stroke();cx.setLineDash([]);
+    cx.lineWidth=3;cx.strokeStyle='#f0585d';path(cx,b);cx.stroke();cx.strokeStyle='#3ccf7e';cx.shadowColor='#3ccf7e';cx.shadowBlur=12;path(cx,a);cx.stroke();cx.shadowBlur=0;
+    if(prog>=1){cx.font='700 13px Sora, Arial';cx.textAlign='right';
+      [[A[60],'#3ccf7e',-9],[B[60],'#f0585d',-9],[1e5,'#ffffff',18]].forEach(([v,c,dy])=>{cx.fillStyle=c;cx.beginPath();cx.arc(X(60),Y(v),5,0,7);cx.fill();cx.fillText(eur(v),X(60)-10,Y(v)+dy);});}
+    if(hov!=null){const x=X(hov);cx.strokeStyle='rgba(255,255,255,.55)';cx.lineWidth=1;cx.setLineDash([3,4]);path(cx,[[x,PAD.t],[x,H-PAD.b]]);cx.stroke();cx.setLineDash([]);}
+  }
+  o.fit();draw();addEventListener('resize',()=>{o.fit();draw();});
+  const mesi=['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+  o.cv.addEventListener('pointermove',e=>{const b=o.cv.getBoundingClientRect(),x=e.clientX-b.left,i=Math.round((x-PAD.l)/(o.W-PAD.l-PAD.r)*5)*12;
+    if(i<0||i>60){hov=null;$('tip1').hidden=true;draw();return;}hov=i;draw();
+    const lab=i===0?'Inizio 2021':`Fine ${2020+i/12} · ${HIST[i/12-1]>0?'+':''}${String(HIST[i/12-1]).replace('.',',')}% nell'anno`;
+    tipAt($('tip1'),o.W,X(i),`<strong>${lab}</strong><div><span><i style="background:#3ccf7e"></i>Bilanciato</span><b>${eur(A[i])}</b></div><div><span><i style="background:#f0585d"></i>Con costi bancari</span><span>${eur(B[i])}</span></div><div><span><i style="background:#fff"></i>Conto corrente</span><span>100.000 €</span></div>`);});
+  o.cv.addEventListener('pointerleave',()=>{hov=null;$('tip1').hidden=true;draw();});
+  let done=false;new IntersectionObserver(e=>{if(e[0].isIntersecting&&!done&&!RM){done=true;prog=0;const s=performance.now();(function go(n){prog=Math.min(1,(n-s)/1400);draw();if(prog<1)requestAnimationFrame(go);})(s);}},{threshold:.4}).observe(o.cv);
+})();
+
+/* ---------- 4. PAC ---------- */
+(function(){
+  const o=setup($('c2')),PAD={l:76,r:24,t:30,b:34},XMAX=35;let Ysel=20,SER=pac(20),prog=1,hov=null,drag=false,YMAX=1;
+  const X=t=>PAD.l+(o.W-PAD.l-PAD.r)*t/XMAX,Yp=v=>PAD.t+(o.H-PAD.t-PAD.b)*(1-v/YMAX);
+  const HZ=[5,10,20,30];
+  $('horiz').innerHTML=HZ.map(y=>`<button type="button" data-y="${y}"><small>Tra ${y} anni</small><b>${eur(pac(y)[y*12].v)}</b><small>versati ${eur(1e5+6000*y)}</small></button>`).join('');
+  const last=()=>SER[SER.length-1];
+  function draw(){const{cx,W,H,dpr}=o;cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,W,H);
+    const step=nice(last().v*1.08/4);YMAX=step*4;
+    cx.font='12px Inter, Arial';cx.fillStyle='#98a9c8';cx.textAlign='right';
+    for(let v=0;v<=YMAX+1;v+=step){const y=Yp(v);cx.strokeStyle='rgba(255,255,255,.08)';cx.beginPath();cx.moveTo(PAD.l,y);cx.lineTo(W-PAD.r,y);cx.stroke();cx.fillText(v===0?'0':k(v),PAD.l-10,y+4);}
+    cx.textAlign='center';const ts=W<520?10:5;for(let t=0;t<=XMAX;t+=ts)cx.fillText(t===0?'oggi':t+' anni',X(t),H-10);
+    const n=Math.max(2,Math.round(SER.length*prog)),vis=SER.slice(0,n),xe=X(vis[vis.length-1].t),base=Yp(0);
+    const b1=vis.map(p=>[X(p.t),Yp(1e5)]),b2=vis.map(p=>[X(p.t),Yp(1e5+p.c)]),b3=vis.map(p=>[X(p.t),Yp(p.v)]);
+    area(cx,[[X(0),base],...b1,[xe,base]],'rgba(25,92,204,.85)');
+    area(cx,[...b1,...b2.slice().reverse()],'rgba(91,147,240,.55)');
+    area(cx,[...b2,...b3.slice().reverse()],'rgba(60,207,126,.5)');
+    cx.strokeStyle='#3ccf7e';cx.lineWidth=3;cx.shadowColor='#3ccf7e';cx.shadowBlur=12;path(cx,b3);cx.stroke();cx.shadowBlur=0;
+    cx.strokeStyle='#fff';cx.lineWidth=2;cx.setLineDash([6,6]);path(cx,b2);cx.stroke();cx.setLineDash([]);
+    const L=last(),fx=X(L.t),fy=Yp(L.v);
+    cx.strokeStyle='#fff';cx.lineWidth=2;path(cx,[[fx,fy+2],[fx,fy-44]]);cx.stroke();
+    cx.fillStyle='#ff6b00';cx.beginPath();cx.moveTo(fx,fy-44);cx.lineTo(fx+96,fy-36);cx.lineTo(fx,fy-24);cx.closePath();cx.fill();
+    cx.fillStyle='#fff';cx.font='800 11px Sora, Arial';cx.textAlign='left';cx.fillText(k(L.v),fx+5,fy-31);
+    cx.beginPath();cx.arc(fx,fy,drag?10:7,0,7);cx.fill();cx.strokeStyle='#ff6b00';cx.lineWidth=3;cx.stroke();
+    if(hov!=null){const p=SER[hov*12],x=X(p.t);cx.strokeStyle='rgba(255,255,255,.55)';cx.lineWidth=1;cx.setLineDash([3,4]);path(cx,[[x,PAD.t],[x,base]]);cx.stroke();cx.setLineDash([]);cx.fillStyle='#3ccf7e';cx.beginPath();cx.arc(x,Yp(p.v),6,0,7);cx.fill();}
+  }
+  function setY(Y,anim){Ysel=Y;SER=pac(Y);const L=last();
+    count($('pv'),L.v,eur);$('pvS').textContent=`tra ${Y} ${Y===1?'anno':'anni'}, con ${eur(1e5+L.c)} versati. Sul conto avresti solo quelli.`;
+    [...$('horiz').children].forEach(b=>b.setAttribute('aria-pressed',+b.dataset.y===Y));
+    if(anim&&!RM){prog=0;const s=performance.now();(function go(n){prog=Math.min(1,(n-s)/1100);draw();if(prog<1)requestAnimationFrame(go);})(s);}else{prog=1;draw();}}
+  $('horiz').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setY(+b.dataset.y,true);});
+  const pos=e=>{const b=o.cv.getBoundingClientRect();return{x:e.clientX-b.left,y:e.clientY-b.top};};
+  const near=p=>{const L=last();return Math.abs(p.x-X(L.t))<34&&Math.abs(p.y-Yp(L.v))<60;};
+  o.cv.addEventListener('pointerdown',e=>{if(near(pos(e))){drag=true;o.cv.setPointerCapture(e.pointerId);$('tip2').hidden=true;draw();}});
+  o.cv.addEventListener('pointermove',e=>{const p=pos(e),t=(p.x-PAD.l)/(o.W-PAD.l-PAD.r)*XMAX;o.cv.style.cursor=near(p)||drag?'grab':'crosshair';
+    if(drag){const Y=Math.max(1,Math.min(XMAX,Math.round(t)));if(Y!==Ysel)setY(Y,false);return;}
+    if(t<0||t>Ysel+.5){hov=null;$('tip2').hidden=true;draw();return;}
+    hov=Math.max(0,Math.min(Ysel,Math.round(t)));const q=SER[hov*12];draw();
+    tipAt($('tip2'),o.W,X(hov),`<strong>${hov===0?'Oggi':'Tra '+hov+(hov===1?' anno':' anni')}</strong><div><span><i style="background:#3ccf7e"></i>Totale</span><b>${eur(q.v)}</b></div><div><span><i style="background:#fff"></i>Sul conto</span><span>${eur(1e5+q.c)}</span></div><div><span><i style="background:#5b93f0"></i>Versamenti</span><span>${eur(q.c)}</span></div><div><span><i style="background:#3ccf7e"></i>Rendimento</span><span>${eur(q.v-1e5-q.c)}</span></div>`);});
+  const end=()=>{if(drag){drag=false;draw();}};
+  o.cv.addEventListener('pointerup',end);o.cv.addEventListener('pointercancel',end);o.cv.addEventListener('pointerleave',()=>{if(!drag){hov=null;$('tip2').hidden=true;draw();}});
+  o.fit();setY(20,false);addEventListener('resize',()=>{o.fit();draw();});
+  let done=false;new IntersectionObserver(e=>{if(e[0].isIntersecting&&!done){done=true;setY(Ysel,true);}},{threshold:.4}).observe(o.cv);
+})();
+
+/* ---------- rivelazioni e carte ---------- */
+if(!RM){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.15});document.querySelectorAll('.rv').forEach(n=>io.observe(n));
+  if(matchMedia('(hover:hover)').matches)document.querySelectorAll('.step').forEach(c=>{c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`rotateY(${x*10}deg) rotateX(${-y*10}deg)`;});c.addEventListener('pointerleave',()=>{c.style.transform='';});});}
+</script>
+
+</body>
+</html>
