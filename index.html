@@ -224,26 +224,114 @@ body{background:#071d29}
 .reveal-ready .steps .step:nth-child(3).in{transition-delay:.18s}
 @media(prefers-reduced-motion:reduce){.reveal-ready .rv:not(.in){opacity:1;transform:none;filter:none}.about-photo,.step,.stats>div{transition:none}}
 </style>
-</head>
+<style id="hero-rework">
+/* Tonalità sobrie, tipografia chiara, contrasto fotografico-editoriale. */
+.brand-lockup{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-logo{width:47px;height:47px;object-fit:contain;background:#fff;border-radius:11px;padding:5px;flex-shrink:0;box-shadow:0 3px 12px rgba(0,0,0,.14)}
+.brand-personal{display:flex;flex-direction:column;line-height:1.18}
+.brand-personal b{color:#fff;letter-spacing:-.035em;font:800 17px var(--h)}
+.brand-personal small{color:#b8d3d1!important;font:500 10px var(--b)!important;margin-top:4px!important}
+.hero-rebuild{min-height:min(790px,calc(100svh - 64px));padding:clamp(80px,10vw,135px) 0 68px;display:flex;align-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 75% 43%,rgba(50,117,124,.19),transparent 40%),linear-gradient(115deg,#071b28 12%,#0b2d3b 73%,#09242f)}
+.hero-rebuild:after{display:none}
+.hero-fine-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(164,217,209,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(164,217,209,.035) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(to left,black,transparent 85%);pointer-events:none}
+.hero-split{width:100%;display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:clamp(18px,4vw,65px);position:relative;z-index:2}
+.hero-copy{max-width:770px;position:relative;z-index:2}
+.hero-rebuild h1{font:800 clamp(45px,5.65vw,89px)/1.075 var(--h);letter-spacing:-.066em;max-width:15.5ch;margin:22px 0 25px;color:#fff}
+.hero-rebuild h1 .g{background:linear-gradient(100deg,#c7e9e3,#acd8d4,#dfc7a8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-rebuild .lead{font-size:clamp(16px,1.35vw,19px);font-weight:400;line-height:1.7;color:#c6d7da;max-width:58ch}
+.hero-rebuild .lead strong{color:#f9f9f7}
+.eyebrow-line{display:inline-block;height:2px;width:25px;background:#c8a77f;vertical-align:middle;margin-right:7px}
+.hero-rebuild .eyebrow{color:#dab891;font:700 11px var(--b);letter-spacing:.19em}
+.hero-cta-row{display:flex;align-items:center;flex-wrap:wrap;gap:20px;margin-top:34px}
+.hero-cta-row .cta{font-size:15px;padding:17px 23px}
+.secondary-cta{display:inline-flex;align-items:center;gap:8px;color:#f0f5f2;font-size:14px;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(223,233,228,.45);padding-bottom:5px;transition:color .25s,border-color .25s}
+.secondary-cta:hover{color:#e1c6a6;border-color:#dabb94}
+.hero-trust{display:flex;flex-wrap:wrap;gap:11px 18px;margin-top:39px}
+.hero-trust span{display:inline-flex;align-items:center;gap:7px;color:#adcbcd;font-size:11px}
+.hero-trust i{width:6px;height:6px;background:#9ed5c6;display:inline-block;border-radius:50%}
+.hero-scene{position:relative;width:100%;height:470px;min-width:0;display:grid;place-items:center}
+.hero-orbit{position:absolute;width:85%;aspect-ratio:1;border:1px solid rgba(142,207,197,.11);border-radius:50%;animation:subtleTurn 38s linear infinite}
+.hero-orbit-2{width:66%;border-style:dashed;border-color:rgba(163,209,202,.15);animation-direction:reverse;animation-duration:50s}
+.hero-orbit-3{width:110%;border-color:rgba(199,227,218,.055);animation-duration:70s}
+.hero-orbit:after{content:"";display:block;position:absolute;top:14%;left:14%;width:5px;height:5px;border-radius:50%;background:#c7e4d9;box-shadow:0 0 14px rgba(145,226,199,.4)}
+.hero-planet{position:relative;width:min(100%,450px);aspect-ratio:1;filter:drop-shadow(0 18px 40px rgba(4,23,31,.2));animation:arrivalDrift 9s ease-in-out infinite alternate}
+.hero-planet svg{width:100%;height:100%}
+.hero-data-card{position:absolute;bottom:43px;left:-3%;z-index:3;width:230px;padding:21px 22px;background:rgba(12,38,48,.85);border:1px solid rgba(168,212,205,.25);border-radius:16px;backdrop-filter:blur(24px);box-shadow:0 25px 60px rgba(0,10,19,.27);animation:arrivalDrift 8s ease-in-out 1s infinite alternate}
+.data-kicker{font-size:9px;letter-spacing:.12em;color:#a5c3c4;font-weight:800;margin-bottom:14px}
+.status-dot{width:6px;height:6px;background:#9bcec0;display:inline-block;border-radius:50%;margin-right:4px}
+.hero-data-card strong{font:700 20px/1.3 var(--h);letter-spacing:-.035em;color:#f4f6f2}
+.data-bars{display:grid;gap:6px;margin:18px 0 13px}.data-bars span{display:block;height:4px;border-radius:6px;background:linear-gradient(90deg,#5daba9,#bad2c3)}
+.hero-data-card small{font-size:10px;color:#b1c9ca}
+.hero-float-label{position:absolute;top:32px;right:4%;font-size:10px;color:#a7c0bd;letter-spacing:.09em}
+.hero-float-label span{color:#e4c7a4;font-weight:800;margin-right:7px}
+.hero-bottom-rule{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-between;padding:18px clamp(20px,5vw,80px);border-top:1px solid rgba(186,221,217,.1);color:#8ca7ac;font-size:10px;letter-spacing:.13em}
+@keyframes subtleTurn{to{transform:rotate(360deg)}}@keyframes arrivalDrift{to{transform:translateY(-12px)}}
+.opening-scene{display:none;position:fixed;z-index:9999;inset:0;background:radial-gradient(circle at 50% 44%,#133c49,#061923 70%);color:#fff;align-items:center;justify-content:center;flex-direction:column;overflow:hidden}
+.opening-scene.active{display:flex}.opening-graphic{position:absolute;width:min(580px,80vw);height:min(580px,80vw);display:grid;place-items:center;opacity:.18}
+.opening-ring{position:absolute;width:100%;height:100%;border:1px solid #d5e9e5;border-radius:50%;animation:openingPulse 1.7s ease-out both}.opening-ring.inner{width:65%;height:65%;animation-delay:.25s}
+.opening-point{width:9px;height:9px;background:#e2c6a2;border-radius:50%;box-shadow:0 0 28px #a1e7d1}
+.opening-eyebrow{position:relative;font-size:11px;font-weight:700;letter-spacing:.24em;color:#b7cfcf;animation:openingReveal .8s ease-out both}
+.opening-title{position:relative;text-align:center;font:800 clamp(38px,6vw,83px)/1.15 var(--h);letter-spacing:-.055em;margin:27px 0 35px;animation:openingReveal .85s ease-out .2s both}
+.opening-title em{font-style:normal;color:#d9c6a7}
+.opening-loader{position:relative;width:145px;height:2px;background:rgba(255,255,255,.17);overflow:hidden}.opening-loader span{display:block;height:100%;width:0;background:#e6d1b1;animation:loadingIntro 2.25s ease-out forwards}
+.opening-skip{position:absolute;bottom:32px;right:34px;background:none;border:0;font:600 12px var(--b);color:#d2e6e1;cursor:pointer}
+.opening-scene.leave{animation:openingAway .65s cubic-bezier(.7,0,.3,1) forwards}
+@keyframes openingPulse{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1.15)}}
+@keyframes openingReveal{from{opacity:0;transform:translateY(22px);filter:blur(7px)}to{opacity:1;transform:translateY(0);filter:none}}
+@keyframes loadingIntro{to{width:100%}}@keyframes openingAway{to{opacity:0;transform:translateY(-3%);visibility:hidden}}
+@media(max-width:970px){.hero-split{grid-template-columns:1fr}.hero-scene{height:350px;max-width:500px;margin:0 auto}.hero-data-card{left:2%}.hero-rebuild{padding-top:105px}.hero-rebuild h1{max-width:17ch}}
+@media(max-width:650px){.brand-logo{width:39px;height:39px}.brand-personal b{font-size:14px}.brand-personal small{font-size:8px!important}.hero-rebuild{padding:100px 0 65px;min-height:auto}.hero-rebuild h1{font-size:clamp(42px,10.5vw,62px);margin:19px 0}.hero-rebuild .lead{font-size:16px}.hero-scene{height:280px}.hero-planet{width:min(83%,310px)}.hero-data-card{width:185px;padding:14px;bottom:5px;left:0}.hero-data-card strong{font-size:16px}.hero-float-label{font-size:9px;right:0}.hero-trust{margin-top:25px}.hero-bottom-rule{padding:13px 20px;font-size:8px}.hero-bottom-rule span:last-child{display:none}}
+@media(prefers-reduced-motion:reduce){.opening-scene{display:none!important}.hero-orbit,.hero-planet,.hero-data-card{animation:none!important}}
+</style></head>
 <body>
+<div id="openingScene" class="opening-scene" aria-hidden="true">
+ <div class="opening-graphic"><div class="opening-ring"></div><div class="opening-ring inner"></div><div class="opening-point"></div></div>
+ <div class="opening-eyebrow">MARCO TURCONI · IOINVESTO SCF</div>
+ <div class="opening-title">Prima capire.<br><em>Poi scegliere.</em></div>
+ <div class="opening-loader"><span></span></div>
+ <button class="opening-skip" type="button" id="skipOpening">Salta introduzione ↗</button>
+</div>
 
 
 <div class="blobs" aria-hidden="true"><i></i><i></i><i></i></div>
 <header class="top"><div class="wrap">
-  <a class="mark" href="#inizio"><i aria-hidden="true"></i><span>Marco Turconi<small>Consulenza finanziaria indipendente</small></span></a><nav class="newnav" aria-label="Sezioni"><a href="#chi-sono">Chi sono</a><a href="#collaborazione">IoInvesto</a><a href="#storico">Simulazioni</a></nav>
+  <a class="mark brand-lockup" href="#inizio" aria-label="Marco Turconi - in collaborazione con IoInvesto SCF">
+<img class="brand-logo" src="https://cdn.trustpilot.net/consumersite-businessunitimages/63a71878a2beb30e2b69769e/profile-description/logo_scf.png" alt="Logo IoInvesto SCF" width="48" height="48" loading="eager">
+<span class="brand-personal"><b>Marco Turconi</b><small>Consulente finanziario autonomo · IoInvesto SCF</small></span></a><nav class="newnav" aria-label="Sezioni"><a href="#chi-sono">Chi sono</a><a href="#collaborazione">IoInvesto</a><a href="#storico">Simulazioni</a></nav>
   <a class="cta sm" href="#richiedi"><span>Analisi gratuita<span class="lg"> del portafoglio</span></span></a>
 </div></header>
 
 <div class="page">
-<section class="hero" id="inizio">
-  <canvas id="gl" aria-hidden="true"></canvas>
-  <div class="wrap"><div class="copy">
-    <div class="eyebrow">Marco Turconi · Consulente finanziario autonomo</div>
-    <h1>Dai una direzione <span class="g">ai tuoi investimenti.</span></h1>
-    <p class="lead">Investimenti più chiari, costi trasparenti e decisioni consapevoli. Parti da un’analisi gratuita del tuo portafoglio.</p>
-    <a class="proof" href="#storico"><b>+35.175 €</b><span>esempio storico 2021–2025 su un portafoglio bilanciato da 100.000 €. Risultati passati, non previsioni.</span></a>
-    <div><a class="cta" href="#richiedi">Analisi gratuita del portafoglio</a></div>
-  </div></div>
+<section class="hero hero-rebuild" id="inizio">
+<div class="hero-fine-grid" aria-hidden="true"></div>
+<div class="wrap hero-split">
+<div class="copy hero-copy">
+  <div class="eyebrow"><span class="eyebrow-line"></span> CONSULENZA FINANZIARIA INDIPENDENTE</div>
+  <h1>Sai quanto ti costano <span class="g">i tuoi investimenti?</span></h1>
+  <p class="lead">Fondi, polizze o risparmi sul conto: prima di scegliere cosa fare, è importante capire come sono gestiti. Con un'<strong>analisi gratuita del portafoglio</strong> esaminiamo costi, rischi e composizione in modo chiaro.</p>
+  <div class="hero-cta-row"><a class="cta" href="#richiedi">Richiedi l'analisi gratuita <span aria-hidden="true">↗</span></a><a class="secondary-cta" href="#come-funziona">Scopri come funziona <span aria-hidden="true">↓</span></a></div>
+  <div class="hero-trust"><span><i aria-hidden="true"></i> Senza impegno</span><span><i aria-hidden="true"></i> Nessun trasferimento di denaro</span><span><i aria-hidden="true"></i> Con IoInvesto SCF</span></div>
+</div>
+<div class="hero-scene" aria-hidden="true">
+  <div class="hero-orbit hero-orbit-1"></div><div class="hero-orbit hero-orbit-2"></div><div class="hero-orbit hero-orbit-3"></div>
+  <div class="hero-planet"><svg viewBox="0 0 400 400" role="presentation"><defs><linearGradient id="orbitLine" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#6ec4bd"/><stop offset=".52" stop-color="#edf7ea"/><stop offset="1" stop-color="#bc9f7b"/></linearGradient></defs>
+  <circle cx="200" cy="200" r="138" fill="none" stroke="#c4ded8" stroke-opacity=".22" stroke-width="1"/>
+  <circle cx="200" cy="200" r="99" fill="none" stroke="#c4ded8" stroke-opacity=".17" stroke-width="1"/>
+  <path d="M65 248 C105 230 130 257 164 219 S220 187 249 203 S306 151 338 126" fill="none" stroke="url(#orbitLine)" stroke-width="3.6" stroke-linecap="round"/>
+  <g fill="#d3f3eb"><circle cx="65" cy="248" r="4"/><circle cx="164" cy="219" r="4"/><circle cx="249" cy="203" r="4"/><circle cx="338" cy="126" r="5"/></g>
+  <path d="M65 248 C105 230 130 257 164 219 S220 187 249 203 S306 151 338 126 L338 308 L65 308Z" fill="#6dd5c6" fill-opacity=".05"/>
+  <path d="M200 63V338M63 200H338" stroke="#fff" stroke-opacity=".07" stroke-dasharray="3 9"/>
+  </svg></div>
+  <div class="hero-data-card">
+    <div class="data-kicker"><span class="status-dot"></span> LA TUA ANALISI</div>
+    <strong>Più chiarezza.<br>Scelte migliori.</strong>
+    <div class="data-bars"><span style="width:85%"></span><span style="width:62%"></span><span style="width:73%"></span></div>
+    <small>Costi · Rischi · Obiettivi</small>
+  </div>
+  <div class="hero-float-label"><span>01 / 03</span> CONOSCERE PRIMA DI DECIDERE</div>
+</div>
+</div>
+<div class="hero-bottom-rule" aria-hidden="true"><span>MARCO TURCONI · IOINVESTO SCF</span><span>SCORRI PER SCOPRIRE ↓</span></div>
 </section>
 
 
@@ -399,37 +487,7 @@ const WA='https://wa.me/393311376711?text='+encodeURIComponent("Buongiorno! Vorr
 document.querySelectorAll('.wa').forEach(a=>a.href=WA);
 function count(el,to,fmt,ms=900){if(RM){el.textContent=fmt(to);el._v=to;return;}const from=el._v??0,t0=performance.now();cancelAnimationFrame(el._r);const st=n=>{const p=Math.min(1,(n-t0)/ms),e=1-Math.pow(1-p,4);el.textContent=fmt(from+(to-from)*e);if(p<1)el._r=requestAnimationFrame(st);else el._v=to;};el._r=requestAnimationFrame(st);}
 
-/* ---------- 1. vortice 3D ---------- */
-(function hero(){
-  const cv=$('gl');let R;
-  if(!window.THREE){cv.remove();return;}
-  try{R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});}catch(e){cv.remove();return;}
-  R.setPixelRatio(Math.min(2,devicePixelRatio||1));
-  const S=new THREE.Scene(),C=new THREE.PerspectiveCamera(42,1,.1,100);C.position.set(0,0,13);
-  const mob=innerWidth<760,N=mob?140:280;
-  const geo=new THREE.CylinderGeometry(.46,.46,.08,48),mat=new THREE.MeshStandardMaterial({color:0xffffff,metalness:.85,roughness:.26,emissive:0x1a1000,emissiveIntensity:.3});
-  const M=new THREE.InstancedMesh(geo,mat,N),col=new THREE.Color(),pal=[0xe3b04b,0xd9a441,0xf0c76a,0xc98f2e,0xe3b04b,0xdfe6f2];
-  const P=[];for(let i=0;i<N;i++){col.setHex(pal[i%pal.length]);M.setColorAt(i,col);P.push({a:Math.random()*6.28,r:1.6+Math.random()*3.2,y:Math.random()*14-7,s:.3+Math.random()*.5,rx:.6+Math.random()*1.4,ry:.4+Math.random()});}
-  const G=new THREE.Group();G.add(M);S.add(G);G.position.set(mob?0:4.6,mob?2.2:0,0);
-  S.add(new THREE.AmbientLight(0x6b7fb0,.6));const d=new THREE.DirectionalLight(0xffffff,1.2);d.position.set(3,6,8);S.add(d);
-  const L=[[0x195ccc,0,3.6],[0xff6b00,2.1,2.4],[0x5b93f0,4.2,3]].map(([c,o,i])=>{const l=new THREE.PointLight(c,i,26);S.add(l);return{l,o};});
-  const D=new THREE.Object3D();let mx=0,my=0,run=true,t=0;
-  addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;},{passive:true});
-  function size(){const w=cv.clientWidth,h=cv.clientHeight;R.setSize(w,h,false);C.aspect=w/h;C.updateProjectionMatrix();}
-  addEventListener('resize',size);size();
-  function frame(dt){
-    t+=dt;
-    for(let i=0;i<N;i++){const p=P[i];let y=((p.y+t*p.s+7)%14+14)%14-7;const f=.32+.68*((y+7)/14),a=p.a+t*(.5-.25*f);
-      D.position.set(Math.cos(a)*p.r*f,y,Math.sin(a)*p.r*f);D.rotation.set(t*p.rx+i,t*p.ry,i*.7);D.updateMatrix();M.setMatrixAt(i,D.matrix);}
-    M.instanceMatrix.needsUpdate=true;
-    L.forEach(({l,o})=>l.position.set(Math.cos(t*.6+o)*7+G.position.x,Math.sin(t*.8+o)*4,Math.sin(t*.6+o)*6+3));
-    C.position.x+=(mx*2.4-C.position.x)*.05;C.position.y+=(-my*1.6-C.position.y)*.05;C.lookAt(G.position.x*.45,0,0);
-    R.render(S,C);
-  }
-  if(RM){frame(3);return;}
-  new IntersectionObserver(e=>{run=e[0].isIntersecting;}).observe(cv);
-  let last=performance.now();(function loop(n){const dt=Math.min(.05,(n-last)/1000);last=n;if(run&&!document.hidden)frame(dt);requestAnimationFrame(loop);})(last);
-})();
+/* Hero sostituito da visual vettoriale; nessuna moneta colorata o effetto 3D invasivo. */
 
 /*MODEL-START*/
 const INFL=2.5,MKT=7,HIST=[14.34,-13.86,12.48,14.72,6.36];
@@ -570,5 +628,15 @@ if(!RM){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting
   requestAnimationFrame(()=>elements.forEach(el=>{let r=el.getBoundingClientRect();if(r.top<innerHeight*.95&&r.bottom>0){el.classList.add('in');observer.unobserve(el)}}));
 })();
 </script>
-</body>
+<script>
+(function(){
+const opening=document.getElementById('openingScene'),skip=document.getElementById('skipOpening');
+if(!opening||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+let shown=false;try{shown=sessionStorage.getItem('iointro_seen')==='yes';}catch(e){}
+if(shown)return;
+opening.classList.add('active');opening.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+let finished=false;const end=()=>{if(finished)return;finished=true;opening.classList.add('leave');document.body.style.overflow='';opening.setAttribute('aria-hidden','true');try{sessionStorage.setItem('iointro_seen','yes');}catch(e){}setTimeout(()=>opening.remove(),700)};
+skip?.addEventListener('click',end);setTimeout(end,2550);
+})();
+</script></body>
 </html>
