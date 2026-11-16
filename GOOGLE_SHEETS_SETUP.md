@@ -22,4 +22,10 @@ Data e ora, nome, cognome, email, telefono, modalità di ricontatto, interesse, 
 
 ## Stato
 
-In attesa dell'URL Apps Script `/exec`: **il modulo HTML attuale utilizza ancora temporaneamente FormSubmit/email**, per non perdere richieste senza un endpoint Google realmente attivo. Quando riceveremo l'URL, sostituiremo l'action del form e rimuoveremo i campi FormSubmit; l'invio sarà **solo verso Google Fogli**, senza email.
+**Integrazione configurata sul sito — in attesa del test di invio.**
+
+Il modulo `index.html` ora invia i dati via POST a:
+
+`https://script.google.com/macros/s/AKfycbxpQWXCUJPcSXAmqqubSXqyYyNEOwZ_8w0tiX0dxoktWm4eglmGI52YNGIVRBvn_LPe/exec`
+
+La precedente destinazione FormSubmit è stata rimossa. Per confermare il funzionamento, compilare una richiesta di prova dal sito e verificare che nel Google Fogli appaia una nuova riga nella scheda **Richieste sito**. La pagina di risposta di Apps Script dovrebbe mostrare `Richiesta inviata`. Se la pagina segnala errori o non viene scritta alcuna riga, verificare le autorizzazioni di Google Apps Script e l'accesso al foglio.
