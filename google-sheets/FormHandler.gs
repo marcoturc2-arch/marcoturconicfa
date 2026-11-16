@@ -7,6 +7,7 @@
  */
 const SPREADSHEET_ID = '13i-nNDpGadLSxKiNPTOsr5gm_hWhOcvzGXXBGvpn3qw';
 const WORKSHEET_NAME = 'Richieste sito';
+const NOTIFICATION_EMAIL = 'marcoturc2@gmail.com';
 const COLUMNS = [
   'Data e ora', 'Nome', 'Cognome', 'Email', 'Telefono',
   'Modalità di contatto', 'Interesse', 'Messaggio', 'Origine'
@@ -38,11 +39,38 @@ function doPost(e) {
     let sh = ss.getSheetByName(WORKSHEET_NAME);
     if (!sh) sh = ss.insertSheet(WORKSHEET_NAME);
     if (sh.getLastRow() === 0) sh.appendRow(COLUMNS);
-    sh.appendRow([
+    const row = [
       new Date(), safe(p.Nome,80), safe(p.Cognome,80), safe(mail,150),safe(p.Telefono,30),
       safe(p['Modalita di contatto'],50), safe(p.Interesse,130),safe(p.Messaggio,600),
-      'marcoturc2-arch.github.io/marcoturconicfa'
-    ]);
+      'marcoturconicfa.it'
+    ];
+    sh.appendRow(row);
+
+    // La registrazione è già avvenuta: un eventuale errore email non deve
+    // indurre l'utente a ripetere l'invio, duplicando il contatto nel foglio.
+    try {
+      MailApp.sendEmail({
+        to: NOTIFICATION_EMAIL,
+        subject: 'Nuovo contatto dal sito - Marco Turconi',
+        body: [
+          'È arrivata una nuova richiesta di analisi gratuita.',
+          '',
+          'Data: ' + Utilities.formatDate(row[0], Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm'),
+          'Nome: ' + String(p.Nome || '').trim(),
+          'Cognome: ' + String(p.Cognome || '').trim(),
+          'Email: ' + mail,
+          'Telefono: ' + String(p.Telefono || '').trim(),
+          'Ricontattare via: ' + String(p['Modalita di contatto'] || '').trim(),
+          'Interesse: ' + String(p.Interesse || '').trim(),
+          'Messaggio: ' + String(p.Messaggio || '').trim(),
+          '',
+          'Visualizza i contatti:',
+          'https://docs.google.com/spreadsheets/d/' + SPREADSHEET_ID + '/edit'
+        ].join('\n')
+      });
+    } catch (emailError) {
+      console.error('Contatto registrato, ma notifica email non inviata: ' + emailError);
+    }
   } catch (err) {
     console.error('Errore salvataggio richiesta: ' + err);
     return resultPage('Non è stato possibile inviare la richiesta. Riprova più tardi.', false);
@@ -59,6 +87,6 @@ function resultPage(message, ok) {
     '<!doctype html><html lang="it"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
     '<title>'+title+'</title><body style="font-family:system-ui;background:#092734;color:#fff;min-height:100vh;display:grid;place-items:center;margin:0">'+
     '<main style="padding:42px;max-width:570px;text-align:center"><h1>'+title+'</h1><p>'+safeMessage+'</p>'+
-    '<a style="color:#e4c49b" href="https://marcoturc2-arch.github.io/marcoturconicfa/">Torna al sito</a></main></body></html>'
+    '<a style="color:#e4c49b" href="https://marcoturconicfa.it/">Torna al sito</a></main></body></html>'
   );
 }
