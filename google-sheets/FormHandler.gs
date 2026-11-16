@@ -22,13 +22,13 @@ function doPost(e) {
     if (!String(p[key] || '').trim()) return resultPage('Completa i campi obbligatori.', false);
   }
   const mail = String(p.Email || '').trim();
-  if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(mail)) return resultPage('Indirizzo email non valido.', false);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) return resultPage('Indirizzo email non valido.', false);
   if (p['Conferma lettura informativa'] !== 'Si') return resultPage('Devi confermare la lettura dell’informativa.', false);
 
   const safe = (value, maxLen) => {
-    let s = String(value || '').trim().slice(0, maxLen).replace(/[\\u0000-\\u001F]/g, ' ');
+    let s = String(value || '').trim().slice(0, maxLen).replace(/[\u0000-\u001F]/g, ' ');
     // Evita interpretazioni come formule all'interno del foglio.
-    return /^[=+\\-@]/.test(s) ? "'" + s : s;
+    return /^[=+\-@]/.test(s) ? "'" + s : s;
   };
 
   const lock = LockService.getScriptLock();
