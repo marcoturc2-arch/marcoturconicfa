@@ -309,6 +309,15 @@ body{background:#071d29}
 .booking-main{display:inline-flex;margin:22px 0 10px;text-decoration:none;align-items:center;justify-content:center}
 .booking-caption{font-size:12px!important;line-height:1.6;color:var(--muted,#a4c5c1);max-width:47ch;margin:2px 0 22px}
 @media(max-width:650px){.booking-main{width:100%;box-sizing:border-box;text-align:center}.hero-cta-row .cta,.hero-cta-row .secondary-cta{max-width:100%}}
+</style><style id="booking-only-layout">
+.booking-only-area .wrap{max-width:960px;margin-inline:auto}
+.booking-only-card{padding:clamp(30px,6vw,78px);text-align:center;border:1px solid rgba(188,231,222,.24);border-radius:26px;background:linear-gradient(130deg,rgba(12,61,77,.94),rgba(6,34,48,.96));box-shadow:0 28px 85px rgba(3,15,25,.2)}
+.booking-only-card h2{font-size:clamp(32px,5vw,57px);line-height:1.1;max-width:18ch;margin:15px auto}
+.booking-only-card>p{max-width:61ch;margin:0 auto 15px;line-height:1.65}
+.booking-only-card .booking-main{margin:23px auto 13px}
+.booking-only-card .booking-caption{margin:0 auto 24px}
+.booking-only-card .request-benefits{display:flex;justify-content:center;gap:clamp(12px,3vw,28px);flex-wrap:wrap}
+@media(max-width:650px){.booking-only-card{padding:28px 18px}.booking-only-card .request-benefits{flex-direction:column;align-items:flex-start;margin-inline:auto;max-width:270px}}
 </style></head>
 <body>
 <div id="openingScene" class="opening-scene" aria-hidden="true">
@@ -461,37 +470,25 @@ body{background:#071d29}
 <details><summary>L'analisi del portafoglio è davvero gratuita?</summary><p>Sì, la prima analisi proposta è gratuita e non comporta obblighi di sottoscrizione. Eventuali servizi successivi sono distinti e vengono presentati con le relative condizioni prima di qualsiasi scelta.</p></details>
 <details><summary>Devo già avere investimenti?</summary><p>No. Se hai già un portafoglio, possiamo iniziare da costi, composizione e rischio. Se invece vuoi cominciare, il primo confronto può riguardare obiettivi, orizzonte e esigenze generali.</p></details>
 <details><summary>Devo trasferire i miei soldi?</summary><p>No. IoInvesto SCF presta consulenza in materia di investimenti senza detenere denaro o titoli dei clienti; non è una banca né un intermediario che custodisce il patrimonio.</p></details>
-<details><summary>Come si svolge il primo incontro?</summary><p>Puoi prenotare direttamente una fascia oraria disponibile tramite Google Calendar oppure compilare il modulo per essere ricontattato. Durante il primo colloquio valuteremo insieme come procedere; per eventuali documenti saranno indicate modalità sicure di condivisione.</p></details>
+<details><summary>Come si svolge il primo incontro?</summary><p>Puoi prenotare direttamente una fascia oraria disponibile tramite Google Calendar. Durante il primo colloquio valuteremo insieme come procedere; per eventuali documenti saranno indicate modalità sicure di condivisione.</p></details>
 <details><summary>Come viene remunerata la consulenza?</summary><p>Il modello di IoInvesto è basato sulla parcella, senza provvigioni di collocamento di prodotti. Per conoscere servizi, prezzi e condizioni aggiornate puoi consultare <a href="https://www.ioinvesto.net/" target="_blank" rel="noopener">il sito ufficiale di IoInvesto SCF</a>.</p></details>
 </div></div></section>
-<section class="scene request-area" id="richiedi"><div class="wrap request-layout">
-<div class="request-intro rv"><div class="eyebrow">COMINCIAMO DA QUI</div><h2>Prenota il tuo <span class="g">primo incontro gratuito.</span></h2>
-<p>Scegli direttamente giorno e orario dal calendario degli appuntamenti. Se preferisci, puoi lasciarmi i tuoi recapiti nel modulo qui a fianco e ti ricontatterò personalmente.</p>
-<a class="cta booking-main" href="https://calendar.app.google/w48d1geyJcaJM8iu8" target="_blank" rel="noopener noreferrer">Scegli data e orario ↗</a>
-<p class="booking-caption">La prenotazione si apre su Google Calendar, dove puoi vedere le fasce disponibili e ricevere conferma.</p>
-<div class="request-benefits"><div><span>01</span> Ci conosciamo</div><div><span>02</span> Definiamo le esigenze</div><div><span>03</span> Concordiamo l’analisi</div></div>
-<p class="privacy-nudge">Non inviare nel modulo credenziali bancarie, estratti conto, codici fiscali o dettagli sui tuoi investimenti.</p>
-</div>
-<div class="lead-card rv"><div class="lead-header"><span>IN ALTERNATIVA</span><strong>Preferisci essere ricontattato?</strong></div>
-<form action="https://script.google.com/macros/s/AKfycbxpQWXCUJPcSXAmqqubSXqyYyNEOwZ_8w0tiX0dxoktWm4eglmGI52YNGIVRBvn_LPe/exec" method="POST" target="_blank" rel="noopener" accept-charset="UTF-8" id="leadForm">
-<input type="text" name="_honey" tabindex="-1" class="honey-field" autocomplete="off" aria-hidden="true">
-<div class="lead-two"><label>Nome *<input name="Nome" type="text" required autocomplete="given-name" maxlength="80" placeholder="Mario"></label><label>Cognome *<input name="Cognome" type="text" required autocomplete="family-name" maxlength="80" placeholder="Rossi"></label></div>
-<div class="lead-two"><label>Email *<input name="Email" type="email" required autocomplete="email" maxlength="150" placeholder="nome@email.it"></label><label>Telefono *<input name="Telefono" type="tel" required autocomplete="tel" maxlength="30" placeholder="+39 ..."></label></div>
-<label>Come preferisci essere ricontattato? *<select name="Modalita di contatto" required><option value="" selected disabled>Seleziona</option><option>Email</option><option>Telefono</option><option>WhatsApp</option></select></label>
-<label>Qual è il tuo interesse principale?<select name="Interesse"><option>Analisi del portafoglio esistente</option><option>Capire come iniziare a investire</option><option>Informazioni sulla consulenza indipendente</option><option>Altro / da definire insieme</option></select></label>
-<label>Messaggio (facoltativo)<textarea name="Messaggio" rows="3" maxlength="600" placeholder="Una domanda generale, senza informazioni finanziarie riservate"></textarea></label>
-<label class="lead-consent"><input type="checkbox" required name="Conferma lettura informativa" value="Si"><span>Ho letto l’<a href="privacy.html" target="_blank" rel="noopener">informativa privacy</a> e chiedo di essere ricontattato in relazione alla mia richiesta. *</span></label>
-<button class="cta send-lead" type="submit">Invia richiesta gratuita ↗</button>
-<p class="form-note">I dati vengono trasmessi tramite Google Apps Script e salvati nel Google Fogli dedicato alle richieste. Dopo l’invio visualizzerai una pagina di conferma.</p>
-</form></div>
-</div></section>
+<section class="scene request-area booking-only-area" id="richiedi"><div class="wrap">
+<div class="booking-only-card rv">
+  <div class="eyebrow">COMINCIAMO DA QUI</div>
+  <h2>Prenota il tuo <span class="g">primo incontro gratuito.</span></h2>
+  <p>Seleziona il giorno e l'orario che preferisci direttamente dal calendario delle disponibilità. Riceverai una conferma della prenotazione.</p>
+  <a class="cta booking-main" href="https://calendar.app.google/w48d1geyJcaJM8iu8" target="_blank" rel="noopener noreferrer">Scegli data e orario ↗</a>
+  <p class="booking-caption">La prenotazione si apre su Google Calendar. Non inserire nelle note informazioni finanziarie riservate.</p>
+  <div class="request-benefits"><div><span>01</span> Scegli l'orario</div><div><span>02</span> Confermi la prenotazione</div><div><span>03</span> Ci conosciamo</div></div>
+</div></div></section>
 <section class="scene"><div class="wrap">
   <div class="card final rv">
     <div class="eyebrow">Gratis, senza impegno</div>
     <h2>Quanto ti sta costando <span class="g">non saperlo?</span></h2>
-    <div class="msgprev">Buongiorno! Vorrei effettuare un'analisi di portafoglio gratuita.</div>
-    <a class="cta" href="https://calendar.app.google/w48d1geyJcaJM8iu8" target="_blank" rel="noopener noreferrer">Prenota un incontro gratuito</a><a class="mail" href="#richiedi">Preferisci essere ricontattato? Compila il modulo</a>
-    <a class="mail" href="mailto:marcoturconi@cfa.ioinvesto.net?subject=Analisi%20gratuita%20del%20portafoglio">marcoturconi@cfa.ioinvesto.net</a>
+    <div class="msgprev">Scegli un orario disponibile e prenota direttamente il tuo primo incontro gratuito.</div>
+    <a class="cta" href="https://calendar.app.google/w48d1geyJcaJM8iu8" target="_blank" rel="noopener noreferrer">Prenota un incontro gratuito</a>
+    
   </div>
 </div></section>
 </div>
