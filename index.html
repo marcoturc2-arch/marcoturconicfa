@@ -305,7 +305,11 @@ body{background:#071d29}
 .brand-personal{min-width:0}.brand-personal b{font-size:15px!important}
 @media(max-width:750px){.brand-logo{width:118px!important;max-height:41px!important;padding:3px 5px!important}.brand-lockup{gap:8px!important}.brand-personal small{display:none!important}.brand-personal b{font-size:12px!important}}
 @media(max-width:400px){.brand-logo{width:96px!important}.brand-personal b{font-size:11px!important}}
-</style><style id="hide-tower-controls">.scrub .play{display:none!important}</style></head>
+</style><style id="hide-tower-controls">.scrub .play{display:none!important}</style><style id="calendar-booking-style">
+.booking-main{display:inline-flex;margin:22px 0 10px;text-decoration:none;align-items:center;justify-content:center}
+.booking-caption{font-size:12px!important;line-height:1.6;color:var(--muted,#a4c5c1);max-width:47ch;margin:2px 0 22px}
+@media(max-width:650px){.booking-main{width:100%;box-sizing:border-box;text-align:center}.hero-cta-row .cta,.hero-cta-row .secondary-cta{max-width:100%}}
+</style></head>
 <body>
 <div id="openingScene" class="opening-scene" aria-hidden="true">
  <div class="opening-graphic"><div class="opening-ring"></div><div class="opening-ring inner"></div><div class="opening-point"></div></div>
@@ -321,7 +325,7 @@ body{background:#071d29}
   <a class="mark brand-lockup" href="#inizio" aria-label="Marco Turconi - in collaborazione con IoInvesto SCF">
 <img class="brand-logo" src="data:image/webp;base64,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" alt="IoInvesto - logo ufficiale" width="256" height="74" loading="eager" decoding="async">
 <span class="brand-personal"><b>Marco Turconi</b><small>Consulente finanziario autonomo · IoInvesto SCF</small></span></a><nav class="newnav" aria-label="Sezioni"><a href="#chi-sono">Chi sono</a><a href="#collaborazione">IoInvesto</a><a href="#storico">Simulazioni</a></nav>
-  <a class="cta sm" href="#richiedi"><span>Analisi gratuita<span class="lg"> del portafoglio</span></span></a>
+  <a class="cta sm" href="https://calendar.app.google/w48d1geyJcaJM8iu8" target="_blank" rel="noopener noreferrer"><span>Prenota<span class="lg"> un incontro gratuito</span></span></a>
 </div></header>
 
 <div class="page">
@@ -332,7 +336,7 @@ body{background:#071d29}
   <div class="eyebrow"><span class="eyebrow-line"></span> CONSULENZA FINANZIARIA INDIPENDENTE</div>
   <h1>Sai quanto ti costano <span class="g">i tuoi investimenti?</span></h1>
   <p class="lead">Fondi, polizze o risparmi sul conto: prima di scegliere cosa fare, è importante capire come sono gestiti. Con un'<strong>analisi gratuita del portafoglio</strong> esaminiamo costi, rischi e composizione in modo chiaro.</p>
-  <div class="hero-cta-row"><a class="cta" href="#richiedi">Richiedi l'analisi gratuita <span aria-hidden="true">↗</span></a><a class="secondary-cta" href="#come-funziona">Scopri come funziona <span aria-hidden="true">↓</span></a></div>
+  <div class="hero-cta-row"><a class="cta" href="https://calendar.app.google/w48d1geyJcaJM8iu8" target="_blank" rel="noopener noreferrer">Prenota un incontro gratuito <span aria-hidden="true">↗</span></a><a class="secondary-cta" href="#richiedi">Preferisci essere ricontattato? <span aria-hidden="true">↓</span></a></div>
   <div class="hero-trust"><span><i aria-hidden="true"></i> Senza impegno</span><span><i aria-hidden="true"></i> Nessun trasferimento di denaro</span><span><i aria-hidden="true"></i> Con IoInvesto SCF</span></div>
 </div>
 <div class="hero-scene" aria-hidden="true">
@@ -365,7 +369,7 @@ body{background:#071d29}
  <p>Oggi lavoro nello sviluppo imprenditoriale e ho conseguito una laurea in Economia e Management per la Sostenibilità Ambientale. Sono iscritto all’Albo OCF, nella sezione dei consulenti finanziari autonomi, e collaboro con <strong>IoInvesto SCF</strong>.</p>
  <p>Credo in una consulenza comprensibile e documentata: prima si analizzano la situazione, i costi e i rischi; poi si ragiona sugli obiettivi. Senza scorciatoie e senza promesse di guadagno.</p>
  <div class="about-pills"><span>Albo OCF n. 639112</span><span>Approccio basato sui dati</span><span>Analisi gratuita</span></div>
- <a class="cta" href="#richiedi">Prenota un'analisi gratuita ↗</a></div>
+ <a class="cta" href="https://calendar.app.google/w48d1geyJcaJM8iu8" target="_blank" rel="noopener noreferrer">Prenota un incontro gratuito ↗</a></div>
 </div></section>
 <section class="scene collaboration-area" id="collaborazione"><div class="wrap collab-layout">
 <div><div class="eyebrow">IL PARTNER</div><h2>Una relazione personale.<br><span class="g">La solidità di IoInvesto SCF.</span></h2>
@@ -457,16 +461,18 @@ body{background:#071d29}
 <details><summary>L'analisi del portafoglio è davvero gratuita?</summary><p>Sì, la prima analisi proposta è gratuita e non comporta obblighi di sottoscrizione. Eventuali servizi successivi sono distinti e vengono presentati con le relative condizioni prima di qualsiasi scelta.</p></details>
 <details><summary>Devo già avere investimenti?</summary><p>No. Se hai già un portafoglio, possiamo iniziare da costi, composizione e rischio. Se invece vuoi cominciare, il primo confronto può riguardare obiettivi, orizzonte e esigenze generali.</p></details>
 <details><summary>Devo trasferire i miei soldi?</summary><p>No. IoInvesto SCF presta consulenza in materia di investimenti senza detenere denaro o titoli dei clienti; non è una banca né un intermediario che custodisce il patrimonio.</p></details>
-<details><summary>Come si svolge il primo incontro?</summary><p>Compila il modulo: sarai ricontattato per concordare un colloquio, anche da remoto. Solo successivamente riceverai indicazioni sui documenti eventualmente necessari e sulle modalità sicure di condivisione.</p></details>
+<details><summary>Come si svolge il primo incontro?</summary><p>Puoi prenotare direttamente una fascia oraria disponibile tramite Google Calendar oppure compilare il modulo per essere ricontattato. Durante il primo colloquio valuteremo insieme come procedere; per eventuali documenti saranno indicate modalità sicure di condivisione.</p></details>
 <details><summary>Come viene remunerata la consulenza?</summary><p>Il modello di IoInvesto è basato sulla parcella, senza provvigioni di collocamento di prodotti. Per conoscere servizi, prezzi e condizioni aggiornate puoi consultare <a href="https://www.ioinvesto.net/" target="_blank" rel="noopener">il sito ufficiale di IoInvesto SCF</a>.</p></details>
 </div></div></section>
 <section class="scene request-area" id="richiedi"><div class="wrap request-layout">
-<div class="request-intro rv"><div class="eyebrow">COMINCIAMO DA QUI</div><h2>Richiedi la tua <span class="g">analisi gratuita.</span></h2>
-<p>Raccontami come posso ricontattarti. Ti scriverò per concordare una prima conversazione e capire come procedere. La richiesta è gratuita e senza impegno.</p>
+<div class="request-intro rv"><div class="eyebrow">COMINCIAMO DA QUI</div><h2>Prenota il tuo <span class="g">primo incontro gratuito.</span></h2>
+<p>Scegli direttamente giorno e orario dal calendario degli appuntamenti. Se preferisci, puoi lasciarmi i tuoi recapiti nel modulo qui a fianco e ti ricontatterò personalmente.</p>
+<a class="cta booking-main" href="https://calendar.app.google/w48d1geyJcaJM8iu8" target="_blank" rel="noopener noreferrer">Scegli data e orario ↗</a>
+<p class="booking-caption">La prenotazione si apre su Google Calendar, dove puoi vedere le fasce disponibili e ricevere conferma.</p>
 <div class="request-benefits"><div><span>01</span> Ci conosciamo</div><div><span>02</span> Definiamo le esigenze</div><div><span>03</span> Concordiamo l’analisi</div></div>
 <p class="privacy-nudge">Non inviare nel modulo credenziali bancarie, estratti conto, codici fiscali o dettagli sui tuoi investimenti.</p>
 </div>
-<div class="lead-card rv"><div class="lead-header"><span>IL PRIMO PASSO</span><strong>Richiesta di contatto</strong></div>
+<div class="lead-card rv"><div class="lead-header"><span>IN ALTERNATIVA</span><strong>Preferisci essere ricontattato?</strong></div>
 <form action="https://script.google.com/macros/s/AKfycbxpQWXCUJPcSXAmqqubSXqyYyNEOwZ_8w0tiX0dxoktWm4eglmGI52YNGIVRBvn_LPe/exec" method="POST" target="_blank" rel="noopener" accept-charset="UTF-8" id="leadForm">
 <input type="text" name="_honey" tabindex="-1" class="honey-field" autocomplete="off" aria-hidden="true">
 <div class="lead-two"><label>Nome *<input name="Nome" type="text" required autocomplete="given-name" maxlength="80" placeholder="Mario"></label><label>Cognome *<input name="Cognome" type="text" required autocomplete="family-name" maxlength="80" placeholder="Rossi"></label></div>
@@ -484,7 +490,7 @@ body{background:#071d29}
     <div class="eyebrow">Gratis, senza impegno</div>
     <h2>Quanto ti sta costando <span class="g">non saperlo?</span></h2>
     <div class="msgprev">Buongiorno! Vorrei effettuare un'analisi di portafoglio gratuita.</div>
-    <a class="cta" href="#richiedi">Analisi gratuita del portafoglio</a>
+    <a class="cta" href="https://calendar.app.google/w48d1geyJcaJM8iu8" target="_blank" rel="noopener noreferrer">Prenota un incontro gratuito</a><a class="mail" href="#richiedi">Preferisci essere ricontattato? Compila il modulo</a>
     <a class="mail" href="mailto:marcoturconi@cfa.ioinvesto.net?subject=Analisi%20gratuita%20del%20portafoglio">marcoturconi@cfa.ioinvesto.net</a>
   </div>
 </div></section>
