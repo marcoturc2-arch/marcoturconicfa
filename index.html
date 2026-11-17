@@ -318,7 +318,51 @@ body{background:#071d29}
 .booking-only-card .booking-caption{margin:0 auto 24px}
 .booking-only-card .request-benefits{display:flex;justify-content:center;gap:clamp(12px,3vw,28px);flex-wrap:wrap}
 @media(max-width:650px){.booking-only-card{padding:28px 18px}.booking-only-card .request-benefits{flex-direction:column;align-items:flex-start;margin-inline:auto;max-width:270px}}
-</style></head>
+</style><style id="landing-viewport-fix">
+/* Prima schermata compatta: elimina l'altezza minima sommata al padding delle vecchie regole. */
+.hero.hero-rebuild{
+  box-sizing:border-box;
+  min-height:min(650px,calc(100svh - 82px));
+  padding:clamp(24px,4vw,46px) 0 56px;
+  align-items:center;
+}
+.hero.hero-rebuild > .hero-split{
+  box-sizing:border-box;
+  padding-top:0;
+  padding-bottom:0;
+}
+.hero.hero-rebuild .hero-copy{align-self:center}
+.hero.hero-rebuild h1{margin-top:15px;margin-bottom:16px}
+.hero.hero-rebuild .hero-cta-row{margin-top:23px}
+.hero.hero-rebuild .hero-trust{margin-top:22px}
+.hero.hero-rebuild .hero-scene{height:350px}
+.hero.hero-rebuild .hero-bottom-rule{padding-block:10px}
+@media(max-width:970px){
+  .hero.hero-rebuild{min-height:0;padding:28px 0 48px}
+  .hero.hero-rebuild .hero-split{gap:12px}
+  .hero.hero-rebuild .hero-scene{height:245px;max-width:440px}
+  .hero.hero-rebuild h1{margin-top:14px;margin-bottom:12px}
+}
+@media(max-width:650px){
+  .hero.hero-rebuild{min-height:0;padding:22px 0 40px}
+  .hero.hero-rebuild .hero-split{gap:4px}
+  .hero.hero-rebuild .hero-copy{padding:0;background:none;box-shadow:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .hero.hero-rebuild h1{font-size:clamp(37px,9.8vw,55px);line-height:1.06;margin:12px 0}
+  .hero.hero-rebuild .lead{font-size:15px;line-height:1.55}
+  .hero.hero-rebuild .hero-cta-row{margin-top:18px;gap:12px}
+  .hero.hero-rebuild .hero-trust{margin-top:18px;gap:8px 12px}
+  .hero.hero-rebuild .hero-scene{height:205px;max-width:330px}
+  .hero.hero-rebuild .hero-planet{width:min(74%,230px)}
+  .hero.hero-rebuild .hero-data-card{transform:scale(.86);transform-origin:bottom left}
+  .hero.hero-rebuild .hero-bottom-rule{padding:10px 16px}
+}
+@media(max-width:390px){
+  .hero.hero-rebuild{padding-top:16px}
+  .hero.hero-rebuild .hero-scene{height:175px}
+  .hero.hero-rebuild .hero-trust{margin-top:14px}
+}
+</style>
+</head>
 <body>
 <div id="openingScene" class="opening-scene" aria-hidden="true">
  <div class="opening-graphic"><div class="opening-ring"></div><div class="opening-ring inner"></div><div class="opening-point"></div></div>
